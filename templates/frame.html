@@ -1,0 +1,50 @@
+
+<html>
+<body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<iframe id="ma_fr" src="https://192.168.0.111/indexx.php" style="width: 100%;
+    height: 98%;"></iframe>
+<form action="/login" id="go_homie"></form>
+</body>
+
+<script type="text/javascript">
+	var usd;
+	              $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+
+        (function(){
+
+                            $.getJSON(
+            $SCRIPT_ROOT+"/user_login_info", // Your AJAX route here
+            function(user_login_info) { 
+               usd = user_login_info;
+		document.getElementById("ma_fr").src = "http://192.168.0.111/indexx.php?uname=" + user_login_info;
+}
+              );
+              //  setTimeout(arguments.callee, 1000);
+        })();
+
+//document.getElementById("ma_fr").src = "http://192.168.0.111/indexx.php?uname=" + usd
+
+
+
+$(document).ready(function(){
+    $("iframe").load(function(){
+        $(this).contents().find("#clicker").click(function(){
+	
+	$.post('/user_add_ph/' + usd + "|||"  + "0");document.getElementById('go_homie').submit()
+	});
+$(this).contents().find("#cropper").click(function(){
+
+        $.post('/user_add_ph/' + usd + "|||"  + "1");document.getElementById('go_homie').submit()
+        });
+
+
+    });
+});
+
+
+
+
+</script>
+
+</html>
