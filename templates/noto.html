@@ -17,6 +17,48 @@
 
   <!-- Custom styles for this template-->
   <link href="static/us_int/css/sb-admin-2.min.css" rel="stylesheet">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
+  <style type="text/css">
+
+
+/****** Style Star Rating Widget *****/
+
+.rating { 
+  border: none;
+  float: left;
+}
+
+.rating > input { display: none; } 
+.rating > label:before { 
+  margin: 5px;
+  font-size: 1.25em;
+  font-family: FontAwesome;
+  display: inline-block;
+  content: "\f005";
+}
+
+.rating > .half:before { 
+  content: "\f089";
+  position: absolute;
+}
+
+.rating > label { 
+  color: #ddd; 
+ float: right; 
+}
+
+/***** CSS Magic to Highlight Stars on Hover *****/
+
+.rating > input:checked ~ label, /* show gold star when clicked */
+.rating:not(:checked) > label:hover, /* hover current star */
+.rating:not(:checked) > label:hover ~ label { color: #FFD700;  } /* hover previous stars in list */
+
+.rating > input:checked + label:hover, /* hover current star when changing rating */
+.rating > input:checked ~ label:hover,
+.rating > label:hover ~ input:checked ~ label, /* lighten current selection */
+.rating > input:checked ~ label:hover ~ label { color: #FFED85;  } 
+
+</style>
 
 </head>
 
@@ -58,7 +100,7 @@
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
           <i class="fas fa-fw fa-cog"></i>
-          <span>Components</span>
+          <span>Soon</span>
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
@@ -73,15 +115,15 @@
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
           <i class="fas fa-fw fa-wrench"></i>
-          <span>Utilities</span>
+          <span>Ways(sik kashxti)</span>
         </a>
         <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Custom Utilities:</h6>
             <a class="collapse-item" onclick="new_post_show()">Create</a>
-            <a class="collapse-item" href="utilities-border.html">Find</a>
-            <a class="collapse-item" href="utilities-animation.html">My</a>
-            <a class="collapse-item" href="utilities-other.html">Booked</a>
+            <a class="collapse-item" href="/sc">Find</a>
+            <a class="collapse-item" href="my_pos">My-chsxmes</a>
+            <a class="collapse-item" href="my_booked">Booked-chsxmes</a>
           </div>
         </div>
       </li>
@@ -189,7 +231,8 @@
             </li>
 
             <!-- Nav Item - Alerts -->
-            <li id="notefication" class="nav-item dropdown no-arrow mx-1">
+            
+            <li  id="notefication" class="nav-item dropdown no-arrow mx-1">
               <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-bell fa-fw"></i>
                 <!-- Counter - Alerts -->
@@ -211,9 +254,31 @@
                     <span class="font-weight-bold">A new monthly report is ready to download!</span>
                   </div>
                 </a>
+                <a class="dropdown-item d-flex align-items-center" href="#">
+                  <div class="mr-3">
+                    <div class="icon-circle bg-primary">
+                      <i class="fas fa-file-alt text-white"></i>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="small text-gray-500">December 12, 2019</div>
+                    <span class="font-weight-bold">A new monthly report is ready to download!</span>
+                    <fieldset class="rating">
+    <input type="radio" id="star5" name="rating" value="5" /><label class = "full" for="star5" title="Awesome - 5 stars"></label>
+    <input type="radio" id="star4half" name="rating" value="4 and a half" /><label class="half" for="star4half" title="Pretty good - 4.5 stars"></label>
+    <input type="radio" id="star4" name="rating" value="4" /><label class = "full" for="star4" title="Pretty good - 4 stars"></label>
+    <input type="radio" id="star3half" name="rating" value="3 and a half" /><label class="half" for="star3half" title="Meh - 3.5 stars"></label>
+    <input type="radio" id="star3" name="rating" value="3" /><label class = "full" for="star3" title="Meh - 3 stars"></label>
+    <input type="radio" id="star2half" name="rating" value="2 and a half" /><label class="half" for="star2half" title="Kinda bad - 2.5 stars"></label>
+    <input type="radio" id="star2" name="rating" value="2" /><label class = "full" for="star2" title="Kinda bad - 2 stars"></label>
+    <input type="radio" id="star1half" name="rating" value="1 and a half" /><label class="half" for="star1half" title="Meh - 1.5 stars"></label>
+    <input type="radio" id="star1" name="rating" value="1" /><label class = "full" for="star1" title="Sucks big time - 1 star"></label>
+    <input type="radio" id="starhalf" name="rating" value="half" /><label class="half" for="starhalf" title="Sucks big time - 0.5 stars"></label>
+</fieldset>
+                  </div>
+                </a>
               </div>
             </li>
-
             <!-- Nav Item - Messages -->
             <li class="nav-item dropdown no-arrow mx-1">
               <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -485,7 +550,7 @@
       <footer class="sticky-footer bg-white">
         <div class="container my-auto">
           <div class="copyright text-center my-auto">
-            <span>Copyright &copy; Your Website 2019</span>
+            <span>Copyright &copy; TarBer 2020</span>
           </div>
         </div>
       </footer>
@@ -669,7 +734,7 @@
 }
 
 </style>
-              
+              <form id="sock" action="#"><button id="sock_click" style="display: none;"></button></form>
   <div class="container-fluid">
 
   <div class="row no-gutter">
@@ -697,7 +762,7 @@
                  <div class="z-depth-1-half map-container-4" style="height: 500px" id="map"></div> 
                 <div class="custom-control custom-checkbox mb-3">
                   <input id="tuda_val" type="checkbox" onclick="tuda_show()" class="custom-control-input" id="customCheck1">
-                  <label class="custom-control-label" for="tuda_val">TudaObratni</label>
+                  <label class="custom-control-label" for="tuda_val">TudaObratni (Sik anpayman myacu)</label>
                 </div>
                 <div> 
                         <div >
@@ -774,9 +839,550 @@
 
 </div>
         <script type="text/javascript">
+          var user_got_info; 
             $(function () {
                 $('#datetimepicker4').datetimepicker();
             });
+
+ var socket = io.connect('https://codetg.cf')
+
+   socket.on( 'connect', function() {
+	     socket.emit( 'my event', {
+		     ata: 'User Connected'
+			       } )
+	       var form = $( '#sock' ).on( 'submit', function( e ) {
+		       e.preventDefault()
+			           socket.emit( 'gagarin', {
+					         user_name : "a1",
+						       message : "a2"
+							           } )
+		           // empty the input field
+		         } )
+             
+   } )
+socket.on( 'sahak', function( msg ) {
+console.log("GOT RESPONSE")
+$SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+
+        $(document).ready(function(){
+                              $.getJSON(
+              $SCRIPT_ROOT+"/user_info", // Your AJAX route here
+              function(user_info) {
+                      var not_info;
+                      console.log(user_info);
+                      document.getElementById("notefic").innerHTML = "";
+                      //document.getElementById("name").innerHTML = "Name  " + user_info[0][0][0]
+                      //document.getElementById("surname").innerHTML = "Surname  " + user_info[0][0][1]
+                      document.getElementById("name_sname").innerHTML = user_info[0][0][0] + " " + user_info[0][0][1]
+                    //  document.getElementById("mail").innerHTML = "Mail  " + user_info[0][0][4]
+                   //   document.getElementById("uname").innerHTML = "USername  " + user_info[0][0][5]
+                   //   document.getElementById("ret").innerHTML = "Reiting  " + user_info[0][0][2]
+                     // document.getElementById("br_day").innerHTML = "Bday  " + user_info[0][0][7]
+                     curr_username = user_info[0][0][5];
+                      document.getElementById("user_image").src = "/static/user_image/" + user_info[0][0][5] + "/a.png"
+                      not_info = user_info[0][0][9]
+                      console.log(not_info);
+                      for(x in user_info[0][0][9]){not_info = not_info.replace("'", '"')}
+                      console.log(not_info);
+                      try{if (not_info.length > 0){document.getElementById("unread_notef").innerHTML = JSON.parse(not_info)[0].length + "+";document.getElementById("unread_notef").style.display = "block";}else{document.getElementById("unread_notef").style.display = "none";}}
+                      catch(e){document.getElementById("unread_notef").style.display = "none";}
+                      var last_info = JSON.parse(not_info)[0].reverse();
+                      var info_not_int = JSON.parse(not_info)[1].reverse();
+                      for(var j = 0; j < last_info.length; j++){
+                          var my_a = document.createElement("A");
+                          var my_div1 = document.createElement("div");
+                          var my_div2 = document.createElement("div");
+                          var my_div3 = document.createElement("div");
+                          var my_div4 = document.createElement("div");
+                          var my_span = document.createElement("SPAN");
+                          var my_i = document.createElement("I");
+                             /* div.style.width = "400px";
+                              div.style.height = "50px";
+                              div.style.background = "red";
+                              div.style.color = "white";*/
+
+                              my_a.id = String(j) + "luck";
+                              my_a.href = "#";
+                              my_a.className = "dropdown-item d-flex align-items-center";
+                              my_div1.className = "mr-3";
+                              my_div2.className = "icon-circle bg-primary";
+                              my_i.className = "fas fa-file-alt text-white";
+                              my_div2.appendChild(my_i);
+                              my_div1.appendChild(my_div2);
+                              my_div3.className = "small text-gray-500";
+                              my_div3.innerHTML = "orm";
+                              my_span.className = "font-weight-bold";
+                              my_span.innerHTML = last_info[j].split("||||")[0].split("&")[0];
+                              my_a.appendChild(my_div1)
+                              my_div4.appendChild(my_div3)
+                              my_div4.appendChild(my_span)
+                              my_a.appendChild(my_div4)
+                              //div.innerHTML = last_info[j].split("||||")[0];
+                              console.log(last_info[j]);
+                              document.getElementById("notefic").appendChild(my_a);
+                              if(last_info[j].split("||||")[0][last_info[j].split("||||")[0].length - 1] == "!" && String(last_info[j].split("||||")[2]) == "1"){
+                                  var agree = document.createElement("BUTTON");
+                                  var decil = document.createElement("BUTTON");
+                                  agree.innerHTML = "Agree";
+                                  decil.innerHTML = "Decil";
+                                  agree.value = last_info[j].split("||||")[1] + "|||" + last_info[j].split(" ")[0] + "|||" + last_info[j].split(" ")[4]
+                                  decil.value = last_info[j].split("||||")[1] + "|||" + last_info[j].split(" ")[0] 
+                                  agree.onclick = function (){
+                                    update_values();
+                                      $.post("/book_agree/" + curr_username + "|||" + this.value);
+                                      update_values();
+                                      setTimeout(update_values(), 1000);
+                                      update_values();
+                                      //+ last_info[j].split("||||")[1]
+                                      //+ "|||" + last_info[j].split(" ")[0] 
+                                  };
+                                  decil.onclick = function (){
+                                    update_values();
+                                      $.post("/book_decil/" + curr_username + this.value);
+                                      update_values();
+                                      setTimeout(update_values(), 1000);
+                                      update_values();
+                                  };
+                                  document.getElementById(String(j) + "luck").appendChild(agree);
+                                  document.getElementById(String(j) + "luck").appendChild(decil);
+                                  console.log("passed");
+                              }
+                            if(last_info[j].split("&").length > 1){
+                                var fild = document.createElement("FIELDSET");
+                                var x1 = document.createElement("INPUT");
+                                var x2 = document.createElement("INPUT");
+                                var x3 = document.createElement("INPUT");
+                                var x4 = document.createElement("INPUT");
+                                var x5 = document.createElement("INPUT");
+                                var x6 = document.createElement("INPUT");
+                                var x7 = document.createElement("INPUT");
+                                var x8 = document.createElement("INPUT");
+                                var x9 = document.createElement("INPUT");
+                                var x10 = document.createElement("INPUT");
+
+                                var y1 = document.createElement("LABEL");
+                                var y2 = document.createElement("LABEL");
+                                var y3 = document.createElement("LABEL");
+                                var y4 = document.createElement("LABEL");
+                                var y5 = document.createElement("LABEL");
+                                var y6 = document.createElement("LABEL");
+                                var y7 = document.createElement("LABEL");
+                                var y8 = document.createElement("LABEL");
+                                var y9 = document.createElement("LABEL");
+                                var y10 = document.createElement("LABEL");
+
+                                y1.className = "full";
+                                y1.htmlFor = "star5" + last_info[j].split("&")[1];
+                                y1.title = "5";
+
+                                y2.className = "half";
+                                y2.htmlFor = "star4half" + last_info[j].split("&")[1];
+                                y2.title = "4.5";
+
+                                y3.className = "full";
+                                y3.htmlFor = "star4" + last_info[j].split("&")[1];
+                                y3.title = "4";
+
+                                y4.className = "half";
+                                y4.htmlFor = "star3half" + last_info[j].split("&")[1];
+                                y4.title = "3.5";
+
+                                y5.className = "full";
+                                y5.htmlFor = "star3" + last_info[j].split("&")[1];
+                                y5.title = "3";
+
+                                y6.className = "half";
+                                y6.htmlFor = "star2half" + last_info[j].split("&")[1];
+                                y6.title = "2.5";
+
+                                y7.className = "full";
+                                y7.htmlFor = "star2" + last_info[j].split("&")[1];
+                                y7.title = "2";
+
+                                y8.className = "half";
+                                y8.htmlFor = "star1half" + last_info[j].split("&")[1];
+                                y8.title = "1.5";
+
+                                y9.className = "full";
+                                y9.htmlFor = "star1" + last_info[j].split("&")[1];
+                                y9.title = "1";
+
+                                y10.className = "half";
+                                y10.htmlFor = "starhalf" + last_info[j].split("&")[1];
+                                y10.title = "0.5";
+
+
+                                x1.setAttribute("type", "radio");
+                                x1.id = "star5" + last_info[j].split("&")[1];
+                                x1.value = "5";
+                                x1.name = "rating";
+
+                                x2.setAttribute("type", "radio");
+                                x2.id = "star4half" + last_info[j].split("&")[1];
+                                x2.value = "4 and a half";
+                                x2.name = "rating";
+
+                                x3.setAttribute("type", "radio");
+                                x3.id = "star4" + last_info[j].split("&")[1];
+                                x3.value = "4";
+                                x3.name = "rating";
+
+                                x4.setAttribute("type", "radio");
+                                x4.id = "star3half" + last_info[j].split("&")[1];
+                                x4.value = "3 and a half";
+                                x4.name = "rating";
+
+                                x5.setAttribute("type", "radio");
+                                x5.id = "star3" + last_info[j].split("&")[1];
+                                x5.value = "3";
+                                x5.name = "rating";
+
+                                x6.setAttribute("type", "radio");
+                                x6.id = "star2half" + last_info[j].split("&")[1];
+                                x6.value = "2 and a half";
+                                x6.name = "rating";
+
+                                x7.setAttribute("type", "radio");
+                                x7.id = "star2" + last_info[j].split("&")[1];
+                                x7.value = "2";
+                                x7.name = "rating";
+
+                                x8.setAttribute("type", "radio");
+                                x8.id = "star1half" + last_info[j].split("&")[1];
+                                x8.value = "1 ans a half";
+                                x8.name = "rating";
+
+                                x9.setAttribute("type", "radio");
+                                x9.id = "star1" + last_info[j].split("&")[1];
+                                x9.value = "1";
+                                x9.name = "rating";
+
+                                x10.setAttribute("type", "radio");
+                                x10.id = "starhalf" + last_info[j].split("&")[1];
+                                x10.value = "half";
+                                x10.name = "rating";
+
+                                fild.value = last_info[j].split("&")[1]
+                                fild.className = "rating"
+                                fild.appendChild(x1);
+                                fild.appendChild(y1);
+                                fild.appendChild(x2);
+                                fild.appendChild(y2);
+                                fild.appendChild(x3);
+                                fild.appendChild(y3);
+                                fild.appendChild(x4);
+                                fild.appendChild(y4);
+                                fild.appendChild(x5);
+                                fild.appendChild(y5);
+                                fild.appendChild(x6);
+                                fild.appendChild(y6);
+                                fild.appendChild(x7);
+                                fild.appendChild(y7);
+                                fild.appendChild(x8);
+                                fild.appendChild(y8);
+                                fild.appendChild(x9);
+                                fild.appendChild(y9);
+                                fild.appendChild(x10);
+                                fild.appendChild(y10);
+                                
+
+                                fild.onclick = function (){
+                                      var my_rate = 0;
+                                      if(document.getElementById('star5' + this.value).checked){my_rate = 5;}
+                                      else if(document.getElementById('star4half' + this.value).checked){my_rate = 4.5;}
+                                      else if(document.getElementById('star4' + this.value).checked){my_rate = 4;}
+                                      else if(document.getElementById('star3half' + this.value).checked){my_rate = 3.5;}
+                                      else if(document.getElementById('star3' + this.value).checked){my_rate = 3;}
+                                      else if(document.getElementById('star2half' + this.value).checked){my_rate = 2.5;}
+                                      else if(document.getElementById('star2' + this.value).checked){my_rate = 2;}
+                                      else if(document.getElementById('star1half' + this.value).checked){my_rate = 1.5;}
+                                      else if(document.getElementById('star1' + this.value).checked){my_rate = 1;}
+                                      else if(document.getElementById('starhalf' + this.value).checked){my_rate = 0.5;}
+                                      $.post("/rate_user/" + this.value + "/" + my_rate)
+                                      update_values();
+                                      setTimeout(update_values, 1000);
+                                      console.log(my_rate)
+                                  };
+                              my_div4.appendChild(fild);
+                              }
+                              
+                      }
+                      for(var j = 0; j < info_not_int.length; j++){
+                          var my_a = document.createElement("A");
+                          var my_div1 = document.createElement("div");
+                          var my_div2 = document.createElement("div");
+                          var my_div3 = document.createElement("div");
+                          var my_div4 = document.createElement("div");
+                          var my_span = document.createElement("SPAN");
+                          var my_i = document.createElement("I");
+                             /* div.style.width = "400px";
+                              div.style.height = "50px";
+                              div.style.background = "red";
+                              div.style.color = "white";*/
+
+                              my_a.id = String(j) + "luck";
+                              my_a.href = "#";
+                              my_a.className = "dropdown-item d-flex align-items-center";
+                              my_div1.className = "mr-3";
+                              my_div2.className = "icon-circle bg-primary";
+                              my_i.className = "fas fa-file-alt text-white";
+                              my_div2.appendChild(my_i);
+                              my_div1.appendChild(my_div2);
+                              my_div3.className = "small text-gray-500";
+                              my_div3.innerHTML = "orm";
+                              my_span.className = "font-weight";
+                              my_span.innerHTML = info_not_int[j].split("||||")[0];
+                              my_a.appendChild(my_div1)
+                              my_div4.appendChild(my_div3)
+                              my_div4.appendChild(my_span)
+                              my_a.appendChild(my_div4)
+                              //div.innerHTML = last_info[j].split("||||")[0];
+                              console.log(last_info[j]);
+                              document.getElementById("notefic").appendChild(my_a);
+                              console.log(info_not_int[j]);
+                              if(info_not_int[j].split("||||")[0][info_not_int[j].split("||||")[0].length - 1] == "!" && String(info_not_int[j].split("||||")[2]) == "1"){
+                                  var agree = document.createElement("BUTTON");
+                                  var decil = document.createElement("BUTTON");
+                                  agree.innerHTML = "Agree";
+                                  decil.innerHTML = "Decil";
+                                  agree.value = info_not_int[j].split("||||")[1] + "|||" + info_not_int[j].split(" ")[0] + "|||" + info_not_int[j].split(" ")[4]
+                                  decil.value = info_not_int[j].split("||||")[1] + "|||" + info_not_int[j].split(" ")[0] 
+                                  agree.onclick = function (){
+                                    update_values();
+                                      $.post("/book_agree/" + curr_username + "|||" + this.value);
+                                      update_values();
+                                      setTimeout(update_values(), 1000);
+                                      update_values();
+                                      //+ last_info[j].split("||||")[1]
+                                      //+ "|||" + last_info[j].split(" ")[0] 
+                                  };
+                                  decil.onclick = function (){
+                                    update_values();
+                                      $.post("/book_decil/" + curr_username + this.value);
+                                      update_values();
+                                      setTimeout(update_values(), 1000);
+                                      update_values();
+                                  };
+                                  document.getElementById(String(j) + "luck").appendChild(agree);
+                                  document.getElementById(String(j) + "luck").appendChild(decil);
+                                  console.log("passed");
+                              }
+                                                           if(info_not_int[j].split("&").length > 1){
+                                var fild = document.createElement("FIELDSET");
+                                var x1 = document.createElement("INPUT");
+                                var x2 = document.createElement("INPUT");
+                                var x3 = document.createElement("INPUT");
+                                var x4 = document.createElement("INPUT");
+                                var x5 = document.createElement("INPUT");
+                                var x6 = document.createElement("INPUT");
+                                var x7 = document.createElement("INPUT");
+                                var x8 = document.createElement("INPUT");
+                                var x9 = document.createElement("INPUT");
+                                var x10 = document.createElement("INPUT");
+
+                                var y1 = document.createElement("LABEL");
+                                var y2 = document.createElement("LABEL");
+                                var y3 = document.createElement("LABEL");
+                                var y4 = document.createElement("LABEL");
+                                var y5 = document.createElement("LABEL");
+                                var y6 = document.createElement("LABEL");
+                                var y7 = document.createElement("LABEL");
+                                var y8 = document.createElement("LABEL");
+                                var y9 = document.createElement("LABEL");
+                                var y10 = document.createElement("LABEL");
+
+                                y1.className = "full";
+                                y1.htmlFor = "star5" + info_not_int[j].split("&")[1];
+                                y1.title = "5";
+
+                                y2.className = "half";
+                                y2.htmlFor = "star4half" + info_not_int[j].split("&")[1];
+                                y2.title = "4.5";
+
+                                y3.className = "full";
+                                y3.htmlFor = "star4" + info_not_int[j].split("&")[1];
+                                y3.title = "4";
+
+                                y4.className = "half";
+                                y4.htmlFor = "star3half" + info_not_int[j].split("&")[1];
+                                y4.title = "3.5";
+
+                                y5.className = "full";
+                                y5.htmlFor = "star3" + info_not_int[j].split("&")[1];
+                                y5.title = "3";
+
+                                y6.className = "half";
+                                y6.htmlFor = "star2half" + info_not_int[j].split("&")[1];
+                                y6.title = "2.5";
+
+                                y7.className = "full";
+                                y7.htmlFor = "star2" + info_not_int[j].split("&")[1];
+                                y7.title = "2";
+
+                                y8.className = "half";
+                                y8.htmlFor = "star1half" + info_not_int[j].split("&")[1];
+                                y8.title = "1.5";
+
+                                y9.className = "full";
+                                y9.htmlFor = "star1" + info_not_int[j].split("&")[1];
+                                y9.title = "1";
+
+                                y10.className = "half";
+                                y10.htmlFor = "starhalf" + info_not_int[j].split("&")[1];
+                                y10.title = "0.5";
+
+
+                                x1.setAttribute("type", "radio");
+                                x1.id = "star5" + info_not_int[j].split("&")[1];
+                                x1.value = "5";
+                                x1.name = "rating";
+
+                                x2.setAttribute("type", "radio");
+                                x2.id = "star4half" + info_not_int[j].split("&")[1];
+                                x2.value = "4 and a half";
+                                x2.name = "rating";
+
+                                x3.setAttribute("type", "radio");
+                                x3.id = "star4" + info_not_int[j].split("&")[1];
+                                x3.value = "4";
+                                x3.name = "rating";
+
+                                x4.setAttribute("type", "radio");
+                                x4.id = "star3half" + info_not_int[j].split("&")[1];
+                                x4.value = "3 and a half";
+                                x4.name = "rating";
+
+                                x5.setAttribute("type", "radio");
+                                x5.id = "star3" + info_not_int[j].split("&")[1];
+                                x5.value = "3";
+                                x5.name = "rating";
+
+                                x6.setAttribute("type", "radio");
+                                x6.id = "star2half" + info_not_int[j].split("&")[1];
+                                x6.value = "2 and a half";
+                                x6.name = "rating";
+
+                                x7.setAttribute("type", "radio");
+                                x7.id = "star2" + info_not_int[j].split("&")[1];
+                                x7.value = "2";
+                                x7.name = "rating";
+
+                                x8.setAttribute("type", "radio");
+                                x8.id = "star1half" + info_not_int[j].split("&")[1];
+                                x8.value = "1 ans a half";
+                                x8.name = "rating";
+
+                                x9.setAttribute("type", "radio");
+                                x9.id = "star1" + info_not_int[j].split("&")[1];
+                                x9.value = "1";
+                                x9.name = "rating";
+
+                                x10.setAttribute("type", "radio");
+                                x10.id = "starhalf" + info_not_int[j].split("&")[1];
+                                x10.value = "half";
+                                x10.name = "rating";
+
+                                fild.value = info_not_int[j].split("&")[1]
+                                fild.className = "rating"
+                                fild.appendChild(x1);
+                                fild.appendChild(y1);
+                                fild.appendChild(x2);
+                                fild.appendChild(y2);
+                                fild.appendChild(x3);
+                                fild.appendChild(y3);
+                                fild.appendChild(x4);
+                                fild.appendChild(y4);
+                                fild.appendChild(x5);
+                                fild.appendChild(y5);
+                                fild.appendChild(x6);
+                                fild.appendChild(y6);
+                                fild.appendChild(x7);
+                                fild.appendChild(y7);
+                                fild.appendChild(x8);
+                                fild.appendChild(y8);
+                                fild.appendChild(x9);
+                                fild.appendChild(y9);
+                                fild.appendChild(x10);
+                                fild.appendChild(y10);
+                                
+
+                                fild.onclick = function (){
+                                      var my_rate = 0;
+                                      if(document.getElementById('star5' + this.value).checked){my_rate = 5;}
+                                      else if(document.getElementById('star4half' + this.value).checked){my_rate = 4.5;}
+                                      else if(document.getElementById('star4' + this.value).checked){my_rate = 4;}
+                                      else if(document.getElementById('star3half' + this.value).checked){my_rate = 3.5;}
+                                      else if(document.getElementById('star3' + this.value).checked){my_rate = 3;}
+                                      else if(document.getElementById('star2half' + this.value).checked){my_rate = 2.5;}
+                                      else if(document.getElementById('star2' + this.value).checked){my_rate = 2;}
+                                      else if(document.getElementById('star1half' + this.value).checked){my_rate = 1.5;}
+                                      else if(document.getElementById('star1' + this.value).checked){my_rate = 1;}
+                                      else if(document.getElementById('starhalf' + this.value).checked){my_rate = 0.5;}
+                                      $.post("/rate_user/" + this.value + "/" + my_rate)
+                                      update_values();
+                                      setTimeout(update_values, 1000);
+                                      console.log(my_rate)
+                                  };
+                              my_div4.appendChild(fild);
+                              }
+                              
+                      }
+
+                      var my_a1 = document.createElement("A");
+                      my_a1.className = "dropdown-item text-center small text-gray-500";
+                      my_a1.innerHTML = "Show All Alerts";
+                      document.getElementById("notefic").appendChild(my_a1);
+                      /*for(var k = 0; k < info_not_int.length; k++){
+                          var div = document.createElement("div");
+                              div.style.width = "400px";
+                              div.style.height = "50px";
+                              div.style.background = "green";
+                              div.style.color = "white";
+                              div.id = String(k) + "luckk"
+                              div.innerHTML = info_not_int[k].split("||||")[0];
+                              document.getElementById("notefic").appendChild(div);
+                              //console.log("yoo",  (info_not_int[k]);
+                          if(info_not_int[k].split("||||")[0][info_not_int[k].split("||||")[0].length - 1] == "!" && String(info_not_int[k].split("||||")[2]) == "1"){
+                                  var agree = document.createElement("BUTTON");
+                                  var decil = document.createElement("BUTTON");
+                                  agree.innerHTML = "Agree";
+                                  decil.innerHTML = "Decil";
+                                  agree.value = info_not_int[k].split("||||")[1] + "|||" + info_not_int[k].split(" ")[0] + "|||" + info_not_int[k].split(" ")[4]
+                                  decil.value = info_not_int[k].split("||||")[1] + "|||" + info_not_int[k].split(" ")[0] 
+                                  agree.onclick = function (){
+                                      $.post("/book_agree/" + curr_username + "|||" + this.value);
+                                      //+ last_info[j].split("||||")[1]
+                                      //+ "|||" + last_info[j].split(" ")[0] 
+                                  };
+                                  decil.onclick = function (){
+                                      $.post("/book_decil/" + curr_username + this.value);
+                                  };
+                                  document.getElementById(String(k) + "luckk").appendChild(agree);
+                                  document.getElementById(String(k) + "luckk").appendChild(decil);
+                                  console.log("passed");
+                              }
+
+                      }*/
+                      console.log(user_info[1])
+                      for(var i = 0; i < user_info[1].length; i++){
+                          var key;
+                              console.log(user_info[1][i])
+                             var div = document.createElement("div");
+                              div.style.width = "200px";
+                              div.style.height = "50px";
+                              div.style.background = "red";
+                              div.style.color = "white";
+                              div.innerHTML = user_info[1][i][1]  + user_info[1][i][2]
+                              div.id = String(i) + "asd"
+                              div.value = user_info[1][i][0]
+                              div.onclick = function () {$.post("/get_quest/" + document.getElementById(this.id).value);document.getElementById("quest").submit();};
+                              document.getElementById("inter_posts").appendChild(div);
+                      }
+                  }
+  );
+});
+
+});
         </script>
 
    <script type="text/javascript">
@@ -875,7 +1481,7 @@ myMap.geoObjects.add(multiRoute);
   document.getElementById("new_post_div").style.display = "none";
   try{
     if(window.location.href.split("?")[1].length > 1){
-      if(window.location.href.split("?")[1].split("=")[0] == "create"){
+      if(window.location.href.split("?")[1].split("=")[0] == "create" && window.location.href.split("?")[1].split("=")[1] == "1"){
         console.log("asada")
         new_post_show()
       }
@@ -903,12 +1509,15 @@ myMap.geoObjects.add(multiRoute);
     $(document).ready(function() {
         $('#post').click(function() {
        $.post("/new_posts/" + document.getElementById("mek").value + "$$$" + document.getElementById("erku").value + "$$$" + document.getElementById("datetimepicker4").value.replace('/', '<>').replace('/', '<>') + "$$$" + document.getElementById("datetimepicker5").value.replace('/', '<>').replace('/', '<>') + "$$$" + document.getElementById("money_user").value + "$$$" + document.getElementById("user_car").value + "$$$" + document.getElementById("user_space").value + "$$$" + document.getElementById("user_phone").value + "$$$" + document.getElementById("more_info").value.replace(/\r?\n/g, '%@') + "$$$" + curr_username + "$$$" + can_smoke + "$$$" + can_music + "$$$" + can_an);
-       
+       hide_post();
 
         });
         $('#notefication').click(function() { 
             $.post("/read_notefic/" + curr_username);
-        });
+            //document.getElementById("sock").submit();
+           // console.log("KILL you")
+      });
+
                 $('#logout').click(function() { 
             $.post("/do_log");
             setTimeout(go_outo, 1200);
@@ -916,192 +1525,727 @@ myMap.geoObjects.add(multiRoute);
         });
     });
     function go_outo(){document.getElementById("logo_out").submit()}
-
+function update_values(){document.getElementById("sock_click").click();console.log("WHANTS TO UPDATE");}
         $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
 
         (function(){
+if(window.location.href.split("?").length < 3){
+                              $.getJSON(
+              $SCRIPT_ROOT+"/user_info", // Your AJAX route here
+              function(user_info) {
+                      var not_info;
+                      console.log(user_info);
+                      //document.getElementById("name").innerHTML = "Name  " + user_info[0][0][0]
+                      //document.getElementById("surname").innerHTML = "Surname  " + user_info[0][0][1]
+                      document.getElementById("name_sname").innerHTML = user_info[0][0][0] + " " + user_info[0][0][1]
+                    //  document.getElementById("mail").innerHTML = "Mail  " + user_info[0][0][4]
+                   //   document.getElementById("uname").innerHTML = "USername  " + user_info[0][0][5]
+                   //   document.getElementById("ret").innerHTML = "Reiting  " + user_info[0][0][2]
+                     // document.getElementById("br_day").innerHTML = "Bday  " + user_info[0][0][7]
+                     curr_username = user_info[0][0][5];
+                      document.getElementById("user_image").src = "/static/user_image/" + user_info[0][0][5] + "/a.png"
+                      not_info = user_info[0][0][9]
+                      console.log(not_info);
+                      for(x in user_info[0][0][9]){not_info = not_info.replace("'", '"')}
+                      console.log(not_info);
+                      try{if (not_info.length > 0){document.getElementById("unread_notef").innerHTML = JSON.parse(not_info)[0].length + "+"}}
+                      catch(e){document.getElementById("unread_notef").style.display = "none";}
+                      var last_info = JSON.parse(not_info)[0].reverse();
+                      var info_not_int = JSON.parse(not_info)[1].reverse();
+                      for(var j = 0; j < last_info.length; j++){
+                          var my_a = document.createElement("A");
+                          var my_div1 = document.createElement("div");
+                          var my_div2 = document.createElement("div");
+                          var my_div3 = document.createElement("div");
+                          var my_div4 = document.createElement("div");
+                          var my_span = document.createElement("SPAN");
+                          var my_i = document.createElement("I");
+                             /* div.style.width = "400px";
+                              div.style.height = "50px";
+                              div.style.background = "red";
+                              div.style.color = "white";*/
 
-                            $.getJSON(
-            $SCRIPT_ROOT+"/user_info", // Your AJAX route here
-            function(user_info) {
-                    var not_info;
-                    console.log(user_info);
-                    //document.getElementById("name").innerHTML = "Name  " + user_info[0][0][0]
-                    //document.getElementById("surname").innerHTML = "Surname  " + user_info[0][0][1]
-                    document.getElementById("name_sname").innerHTML = user_info[0][0][0] + " " + user_info[0][0][1]
-                  //  document.getElementById("mail").innerHTML = "Mail  " + user_info[0][0][4]
-                 //   document.getElementById("uname").innerHTML = "USername  " + user_info[0][0][5]
-                 //   document.getElementById("ret").innerHTML = "Reiting  " + user_info[0][0][2]
-                   // document.getElementById("br_day").innerHTML = "Bday  " + user_info[0][0][7]
-                   curr_username = user_info[0][0][5];
-                    document.getElementById("user_image").src = "/static/user_image/" + user_info[0][0][5] + "/a.png"
-                    not_info = user_info[0][0][9]
-                    console.log(not_info);
-                    for(x in user_info[0][0][9]){not_info = not_info.replace("'", '"')}
-                    console.log(not_info);
-                    document.getElementById("unread_notef").innerHTML = JSON.parse(not_info)[0].length + "+"
-                    var last_info = JSON.parse(not_info)[0].reverse();
-                    var info_not_int = JSON.parse(not_info)[1].reverse();
-                    for(var j = 0; j < last_info.length; j++){
-                        var my_a = document.createElement("A");
-                        var my_div1 = document.createElement("div");
-                        var my_div2 = document.createElement("div");
-                        var my_div3 = document.createElement("div");
-                        var my_div4 = document.createElement("div");
-                        var my_span = document.createElement("SPAN");
-                        var my_i = document.createElement("I");
-                           /* div.style.width = "400px";
-                            div.style.height = "50px";
-                            div.style.background = "red";
-                            div.style.color = "white";*/
+                              my_a.id = String(j) + "luck";
+                              my_a.href = "#";
+                              my_a.className = "dropdown-item d-flex align-items-center";
+                              my_div1.className = "mr-3";
+                              my_div2.className = "icon-circle bg-primary";
+                              my_i.className = "fas fa-file-alt text-white";
+                              my_div2.appendChild(my_i);
+                              my_div1.appendChild(my_div2);
+                              my_div3.className = "small text-gray-500";
+                              my_div3.innerHTML = "orm";
+                              my_span.className = "font-weight-bold";
+                              my_span.innerHTML = last_info[j].split("||||")[0];
+                              my_a.appendChild(my_div1)
+                              my_div4.appendChild(my_div3)
+                              my_div4.appendChild(my_span)
+                              my_a.appendChild(my_div4)
+                              //div.innerHTML = last_info[j].split("||||")[0];
+                              console.log(last_info[j]);
+                              document.getElementById("notefic").appendChild(my_a);
+                              if(last_info[j].split("||||")[0][last_info[j].split("||||")[0].length - 1] == "!" && String(last_info[j].split("||||")[2]) == "1"){
+                                  var agree = document.createElement("BUTTON");
+                                  var decil = document.createElement("BUTTON");
+                                  agree.innerHTML = "Agree";
+                                  decil.innerHTML = "Decil";
+                                  agree.value = last_info[j].split("||||")[1] + "|||" + last_info[j].split(" ")[0] + "|||" + last_info[j].split(" ")[4]
+                                  decil.value = last_info[j].split("||||")[1] + "|||" + last_info[j].split(" ")[0] 
+                                  agree.onclick = function (){
+                                    update_values();
+                                      $.post("/book_agree/" + curr_username + "|||" + this.value);
+                                      update_values();
+                                      setTimeout(update_values, 1000);
+                                      update_values();
+                                      //+ last_info[j].split("||||")[1]
+                                      //+ "|||" + last_info[j].split(" ")[0] 
+                                  };
+                                  decil.onclick = function (){
+                                    update_values();
+                                      $.post("/book_decil/" + curr_username + this.value);
+                                      update_values();
+                                      setTimeout(update_values, 1000);
+                                      update_values();
+                                  };
+                                  document.getElementById(String(j) + "luck").appendChild(agree);
+                                  document.getElementById(String(j) + "luck").appendChild(decil);
+                                  console.log("passed");
+                              }
 
-                            my_a.id = String(j) + "luck";
-                            my_a.href = "#";
-                            my_a.className = "dropdown-item d-flex align-items-center";
-                            my_div1.className = "mr-3";
-                            my_div2.className = "icon-circle bg-primary";
-                            my_i.className = "fas fa-file-alt text-white";
-                            my_div2.appendChild(my_i);
-                            my_div1.appendChild(my_div2);
-                            my_div3.className = "small text-gray-500";
-                            my_div3.innerHTML = "orm";
-                            my_span.className = "font-weight-bold";
-                            my_span.innerHTML = last_info[j].split("||||")[0];
-                            my_a.appendChild(my_div1)
-                            my_div4.appendChild(my_div3)
-                            my_div4.appendChild(my_span)
-                            my_a.appendChild(my_div4)
-                            //div.innerHTML = last_info[j].split("||||")[0];
-                            console.log(last_info[j]);
-                            document.getElementById("notefic").appendChild(my_a);
-                            if(last_info[j].split("||||")[0][last_info[j].split("||||")[0].length - 1] == "!" && String(last_info[j].split("||||")[2]) == "1"){
-                                var agree = document.createElement("BUTTON");
-                                var decil = document.createElement("BUTTON");
-                                agree.innerHTML = "Agree";
-                                decil.innerHTML = "Decil";
-                                agree.value = last_info[j].split("||||")[1] + "|||" + last_info[j].split(" ")[0] + "|||" + last_info[j].split(" ")[4]
-                                decil.value = last_info[j].split("||||")[1] + "|||" + last_info[j].split(" ")[0] 
-                                agree.onclick = function (){
-                                    $.post("/book_agree/" + curr_username + "|||" + this.value);
-                                    //+ last_info[j].split("||||")[1]
-                                    //+ "|||" + last_info[j].split(" ")[0] 
-                                };
-                                decil.onclick = function (){
-                                    $.post("/book_decil/" + curr_username + this.value);
-                                };
-                                document.getElementById(String(j) + "luck").appendChild(agree);
-                                document.getElementById(String(j) + "luck").appendChild(decil);
-                                console.log("passed");
-                            }
-                            
-                    }
-                    for(var j = 0; j < info_not_int.length; j++){
-                        var my_a = document.createElement("A");
-                        var my_div1 = document.createElement("div");
-                        var my_div2 = document.createElement("div");
-                        var my_div3 = document.createElement("div");
-                        var my_div4 = document.createElement("div");
-                        var my_span = document.createElement("SPAN");
-                        var my_i = document.createElement("I");
-                           /* div.style.width = "400px";
-                            div.style.height = "50px";
-                            div.style.background = "red";
-                            div.style.color = "white";*/
+                              if(last_info[j].split("&").length > 1){
+                                var fild = document.createElement("FIELDSET");
+                                var x1 = document.createElement("INPUT");
+                                var x2 = document.createElement("INPUT");
+                                var x3 = document.createElement("INPUT");
+                                var x4 = document.createElement("INPUT");
+                                var x5 = document.createElement("INPUT");
+                                var x6 = document.createElement("INPUT");
+                                var x7 = document.createElement("INPUT");
+                                var x8 = document.createElement("INPUT");
+                                var x9 = document.createElement("INPUT");
+                                var x10 = document.createElement("INPUT");
 
-                            my_a.id = String(j) + "luck";
-                            my_a.href = "#";
-                            my_a.className = "dropdown-item d-flex align-items-center";
-                            my_div1.className = "mr-3";
-                            my_div2.className = "icon-circle bg-primary";
-                            my_i.className = "fas fa-file-alt text-white";
-                            my_div2.appendChild(my_i);
-                            my_div1.appendChild(my_div2);
-                            my_div3.className = "small text-gray-500";
-                            my_div3.innerHTML = "orm";
-                            my_span.className = "font-weight";
-                            my_span.innerHTML = info_not_int[j].split("||||")[0];
-                            my_a.appendChild(my_div1)
-                            my_div4.appendChild(my_div3)
-                            my_div4.appendChild(my_span)
-                            my_a.appendChild(my_div4)
-                            //div.innerHTML = last_info[j].split("||||")[0];
-                            console.log(last_info[j]);
-                            document.getElementById("notefic").appendChild(my_a);
-                            if(info_not_int[j].split("||||")[0][info_not_int[j].split("||||")[0].length - 1] == "!" && String(info_not_int[j].split("||||")[2]) == "1"){
-                                var agree = document.createElement("BUTTON");
-                                var decil = document.createElement("BUTTON");
-                                agree.innerHTML = "Agree";
-                                decil.innerHTML = "Decil";
-                                agree.value = info_not_int[j].split("||||")[1] + "|||" + info_not_int[j].split(" ")[0] + "|||" + info_not_int[j].split(" ")[4]
-                                decil.value = info_not_int[j].split("||||")[1] + "|||" + info_not_int[j].split(" ")[0] 
-                                agree.onclick = function (){
-                                    $.post("/book_agree/" + curr_username + "|||" + this.value);
-                                    //+ last_info[j].split("||||")[1]
-                                    //+ "|||" + last_info[j].split(" ")[0] 
-                                };
-                                decil.onclick = function (){
-                                    $.post("/book_decil/" + curr_username + this.value);
-                                };
-                                document.getElementById(String(j) + "luck").appendChild(agree);
-                                document.getElementById(String(j) + "luck").appendChild(decil);
-                                console.log("passed");
-                            }
-                            
-                    }
+                                var y1 = document.createElement("LABEL");
+                                var y2 = document.createElement("LABEL");
+                                var y3 = document.createElement("LABEL");
+                                var y4 = document.createElement("LABEL");
+                                var y5 = document.createElement("LABEL");
+                                var y6 = document.createElement("LABEL");
+                                var y7 = document.createElement("LABEL");
+                                var y8 = document.createElement("LABEL");
+                                var y9 = document.createElement("LABEL");
+                                var y10 = document.createElement("LABEL");
 
-                    var my_a1 = document.createElement("A");
-                    my_a1.className = "dropdown-item text-center small text-gray-500";
-                    my_a1.innerHTML = "Show All Alerts";
-                    document.getElementById("notefic").appendChild(my_a1);
-                    /*for(var k = 0; k < info_not_int.length; k++){
-                        var div = document.createElement("div");
-                            div.style.width = "400px";
-                            div.style.height = "50px";
-                            div.style.background = "green";
-                            div.style.color = "white";
-                            div.id = String(k) + "luckk"
-                            div.innerHTML = info_not_int[k].split("||||")[0];
-                            document.getElementById("notefic").appendChild(div);
-                            //console.log("yoo",  (info_not_int[k]);
-                        if(info_not_int[k].split("||||")[0][info_not_int[k].split("||||")[0].length - 1] == "!" && String(info_not_int[k].split("||||")[2]) == "1"){
-                                var agree = document.createElement("BUTTON");
-                                var decil = document.createElement("BUTTON");
-                                agree.innerHTML = "Agree";
-                                decil.innerHTML = "Decil";
-                                agree.value = info_not_int[k].split("||||")[1] + "|||" + info_not_int[k].split(" ")[0] + "|||" + info_not_int[k].split(" ")[4]
-                                decil.value = info_not_int[k].split("||||")[1] + "|||" + info_not_int[k].split(" ")[0] 
-                                agree.onclick = function (){
-                                    $.post("/book_agree/" + curr_username + "|||" + this.value);
-                                    //+ last_info[j].split("||||")[1]
-                                    //+ "|||" + last_info[j].split(" ")[0] 
-                                };
-                                decil.onclick = function (){
-                                    $.post("/book_decil/" + curr_username + this.value);
-                                };
-                                document.getElementById(String(k) + "luckk").appendChild(agree);
-                                document.getElementById(String(k) + "luckk").appendChild(decil);
-                                console.log("passed");
-                            }
+                                y1.className = "full";
+                                y1.htmlFor = "star5" + last_info[j].split("&")[1];
+                                y1.title = "5";
 
-                    }*/
-                    console.log(user_info[1])
-                    for(var i = 0; i < user_info[1].length; i++){
-                        var key;
-                            console.log(user_info[1][i])
-                           var div = document.createElement("div");
-                            div.style.width = "200px";
-                            div.style.height = "50px";
-                            div.style.background = "red";
-                            div.style.color = "white";
-                            div.innerHTML = user_info[1][i][1]  + user_info[1][i][2]
-                            div.id = String(i) + "asd"
-                            div.value = user_info[1][i][0]
-                            div.onclick = function () {$.post("/get_quest/" + document.getElementById(this.id).value);document.getElementById("quest").submit();};
-                            document.getElementById("inter_posts").appendChild(div);
-                    }
-                }
-);
-              //  setTimeout(arguments.callee, 1000);
+                                y2.className = "half";
+                                y2.htmlFor = "star4half" + last_info[j].split("&")[1];
+                                y2.title = "4.5";
+
+                                y3.className = "full";
+                                y3.htmlFor = "star4" + last_info[j].split("&")[1];
+                                y3.title = "4";
+
+                                y4.className = "half";
+                                y4.htmlFor = "star3half" + last_info[j].split("&")[1];
+                                y4.title = "3.5";
+
+                                y5.className = "full";
+                                y5.htmlFor = "star3" + last_info[j].split("&")[1];
+                                y5.title = "3";
+
+                                y6.className = "half";
+                                y6.htmlFor = "star2half" + last_info[j].split("&")[1];
+                                y6.title = "2.5";
+
+                                y7.className = "full";
+                                y7.htmlFor = "star2" + last_info[j].split("&")[1];
+                                y7.title = "2";
+
+                                y8.className = "half";
+                                y8.htmlFor = "star1half" + last_info[j].split("&")[1];
+                                y8.title = "1.5";
+
+                                y9.className = "full";
+                                y9.htmlFor = "star1" + last_info[j].split("&")[1];
+                                y9.title = "1";
+
+                                y10.className = "half";
+                                y10.htmlFor = "starhalf" + last_info[j].split("&")[1];
+                                y10.title = "0.5";
+
+
+                                x1.setAttribute("type", "radio");
+                                x1.id = "star5" + last_info[j].split("&")[1];
+                                x1.value = "5";
+                                x1.name = "rating";
+
+                                x2.setAttribute("type", "radio");
+                                x2.id = "star4half" + last_info[j].split("&")[1];
+                                x2.value = "4 and a half";
+                                x2.name = "rating";
+
+                                x3.setAttribute("type", "radio");
+                                x3.id = "star4" + last_info[j].split("&")[1];
+                                x3.value = "4";
+                                x3.name = "rating";
+
+                                x4.setAttribute("type", "radio");
+                                x4.id = "star3half" + last_info[j].split("&")[1];
+                                x4.value = "3 and a half";
+                                x4.name = "rating";
+
+                                x5.setAttribute("type", "radio");
+                                x5.id = "star3" + last_info[j].split("&")[1];
+                                x5.value = "3";
+                                x5.name = "rating";
+
+                                x6.setAttribute("type", "radio");
+                                x6.id = "star2half" + last_info[j].split("&")[1];
+                                x6.value = "2 and a half";
+                                x6.name = "rating";
+
+                                x7.setAttribute("type", "radio");
+                                x7.id = "star2" + last_info[j].split("&")[1];
+                                x7.value = "2";
+                                x7.name = "rating";
+
+                                x8.setAttribute("type", "radio");
+                                x8.id = "star1half" + last_info[j].split("&")[1];
+                                x8.value = "1 ans a half";
+                                x8.name = "rating";
+
+                                x9.setAttribute("type", "radio");
+                                x9.id = "star1" + last_info[j].split("&")[1];
+                                x9.value = "1";
+                                x9.name = "rating";
+
+                                x10.setAttribute("type", "radio");
+                                x10.id = "starhalf" + last_info[j].split("&")[1];
+                                x10.value = "half";
+                                x10.name = "rating";
+
+                                fild.value = last_info[j].split("&")[1]
+                                fild.className = "rating"
+                                fild.appendChild(x1);
+                                fild.appendChild(y1);
+                                fild.appendChild(x2);
+                                fild.appendChild(y2);
+                                fild.appendChild(x3);
+                                fild.appendChild(y3);
+                                fild.appendChild(x4);
+                                fild.appendChild(y4);
+                                fild.appendChild(x5);
+                                fild.appendChild(y5);
+                                fild.appendChild(x6);
+                                fild.appendChild(y6);
+                                fild.appendChild(x7);
+                                fild.appendChild(y7);
+                                fild.appendChild(x8);
+                                fild.appendChild(y8);
+                                fild.appendChild(x9);
+                                fild.appendChild(y9);
+                                fild.appendChild(x10);
+                                fild.appendChild(y10);
+                                
+
+                                fild.onclick = function (){
+                                      var my_rate = 0;
+                                      if(document.getElementById('star5' + this.value).checked){my_rate = 5;}
+                                      else if(document.getElementById('star4half' + this.value).checked){my_rate = 4.5;}
+                                      else if(document.getElementById('star4' + this.value).checked){my_rate = 4;}
+                                      else if(document.getElementById('star3half' + this.value).checked){my_rate = 3.5;}
+                                      else if(document.getElementById('star3' + this.value).checked){my_rate = 3;}
+                                      else if(document.getElementById('star2half' + this.value).checked){my_rate = 2.5;}
+                                      else if(document.getElementById('star2' + this.value).checked){my_rate = 2;}
+                                      else if(document.getElementById('star1half' + this.value).checked){my_rate = 1.5;}
+                                      else if(document.getElementById('star1' + this.value).checked){my_rate = 1;}
+                                      else if(document.getElementById('starhalf' + this.value).checked){my_rate = 0.5;}
+                                      $.post("/rate_user/" + this.value + "/" + my_rate)
+                                      update_values();
+                                      setTimeout(update_values, 1000);
+                                      console.log(my_rate)
+                                  };
+                              my_div4.appendChild(fild);
+                              }
+                              
+                      }
+                      for(var j = 0; j < info_not_int.length; j++){
+                          var my_a = document.createElement("A");
+                          var my_div1 = document.createElement("div");
+                          var my_div2 = document.createElement("div");
+                          var my_div3 = document.createElement("div");
+                          var my_div4 = document.createElement("div");
+                          var my_span = document.createElement("SPAN");
+                          var my_i = document.createElement("I");
+                             /* div.style.width = "400px";
+                              div.style.height = "50px";
+                              div.style.background = "red";
+                              div.style.color = "white";*/
+
+                              my_a.id = String(j) + "luck";
+                              my_a.href = "#";
+                              my_a.className = "dropdown-item d-flex align-items-center";
+                              my_div1.className = "mr-3";
+                              my_div2.className = "icon-circle bg-primary";
+                              my_i.className = "fas fa-file-alt text-white";
+                              my_div2.appendChild(my_i);
+                              my_div1.appendChild(my_div2);
+                              my_div3.className = "small text-gray-500";
+                              my_div3.innerHTML = "orm";
+                              my_span.className = "font-weight";
+                              my_span.innerHTML = info_not_int[j].split("||||")[0].split("&")[0];
+                              my_a.appendChild(my_div1)
+                              my_div4.appendChild(my_div3)
+                              my_div4.appendChild(my_span)
+                              my_a.appendChild(my_div4)
+                              //div.innerHTML = last_info[j].split("||||")[0];
+                              console.log(last_info[j]);
+                              document.getElementById("notefic").appendChild(my_a);
+                              console.log(info_not_int[j])
+                              if(info_not_int[j].split("||||")[0][info_not_int[j].split("||||")[0].length - 1] == "!" && String(info_not_int[j].split("||||")[2]) == "1"){
+                                  var agree = document.createElement("BUTTON");
+                                  var decil = document.createElement("BUTTON");
+                                  agree.innerHTML = "Agree";
+                                  decil.innerHTML = "Decil";
+                                  agree.value = info_not_int[j].split("||||")[1] + "|||" + info_not_int[j].split(" ")[0] + "|||" + info_not_int[j].split(" ")[4]
+                                  decil.value = info_not_int[j].split("||||")[1] + "|||" + info_not_int[j].split(" ")[0] 
+                                  agree.onclick = function (){
+                                    update_values();
+                                      $.post("/book_agree/" + curr_username + "|||" + this.value);
+                                      update_values();
+                                      setTimeout(update_values, 1000);
+                                      update_values();
+                                      //+ last_info[j].split("||||")[1]
+                                      //+ "|||" + last_info[j].split(" ")[0] 
+                                  };
+                                  decil.onclick = function (){
+                                    update_values();
+                                      $.post("/book_decil/" + curr_username + this.value);
+                                      update_values();
+                                      setTimeout(update_values, 1000);
+                                      update_values();
+                                  };
+                                  document.getElementById(String(j) + "luck").appendChild(agree);
+                                  document.getElementById(String(j) + "luck").appendChild(decil);
+                                  console.log("passed");
+                              }
+                              if(info_not_int[j].split("&").length > 1){
+                                var fild = document.createElement("FIELDSET");
+                                var x1 = document.createElement("INPUT");
+                                var x2 = document.createElement("INPUT");
+                                var x3 = document.createElement("INPUT");
+                                var x4 = document.createElement("INPUT");
+                                var x5 = document.createElement("INPUT");
+                                var x6 = document.createElement("INPUT");
+                                var x7 = document.createElement("INPUT");
+                                var x8 = document.createElement("INPUT");
+                                var x9 = document.createElement("INPUT");
+                                var x10 = document.createElement("INPUT");
+
+                                var y1 = document.createElement("LABEL");
+                                var y2 = document.createElement("LABEL");
+                                var y3 = document.createElement("LABEL");
+                                var y4 = document.createElement("LABEL");
+                                var y5 = document.createElement("LABEL");
+                                var y6 = document.createElement("LABEL");
+                                var y7 = document.createElement("LABEL");
+                                var y8 = document.createElement("LABEL");
+                                var y9 = document.createElement("LABEL");
+                                var y10 = document.createElement("LABEL");
+
+                                y1.className = "full";
+                                y1.htmlFor = "star5" + info_not_int[j].split("&")[1];
+                                y1.title = "5";
+
+                                y2.className = "half";
+                                y2.htmlFor = "star4half" + info_not_int[j].split("&")[1];
+                                y2.title = "4.5";
+
+                                y3.className = "full";
+                                y3.htmlFor = "star4" + info_not_int[j].split("&")[1];
+                                y3.title = "4";
+
+                                y4.className = "half";
+                                y4.htmlFor = "star3half" + info_not_int[j].split("&")[1];
+                                y4.title = "3.5";
+
+                                y5.className = "full";
+                                y5.htmlFor = "star3" + info_not_int[j].split("&")[1];
+                                y5.title = "3";
+
+                                y6.className = "half";
+                                y6.htmlFor = "star2half" + info_not_int[j].split("&")[1];
+                                y6.title = "2.5";
+
+                                y7.className = "full";
+                                y7.htmlFor = "star2" + info_not_int[j].split("&")[1];
+                                y7.title = "2";
+
+                                y8.className = "half";
+                                y8.htmlFor = "star1half" + info_not_int[j].split("&")[1];
+                                y8.title = "1.5";
+
+                                y9.className = "full";
+                                y9.htmlFor = "star1" + info_not_int[j].split("&")[1];
+                                y9.title = "1";
+
+                                y10.className = "half";
+                                y10.htmlFor = "starhalf" + info_not_int[j].split("&")[1];
+                                y10.title = "0.5";
+
+
+                                x1.setAttribute("type", "radio");
+                                x1.id = "star5" + info_not_int[j].split("&")[1];
+                                x1.value = "5";
+                                x1.name = "rating";
+
+                                x2.setAttribute("type", "radio");
+                                x2.id = "star4half" + info_not_int[j].split("&")[1];
+                                x2.value = "4 and a half";
+                                x2.name = "rating";
+
+                                x3.setAttribute("type", "radio");
+                                x3.id = "star4" + info_not_int[j].split("&")[1];
+                                x3.value = "4";
+                                x3.name = "rating";
+
+                                x4.setAttribute("type", "radio");
+                                x4.id = "star3half" + info_not_int[j].split("&")[1];
+                                x4.value = "3 and a half";
+                                x4.name = "rating";
+
+                                x5.setAttribute("type", "radio");
+                                x5.id = "star3" + info_not_int[j].split("&")[1];
+                                x5.value = "3";
+                                x5.name = "rating";
+
+                                x6.setAttribute("type", "radio");
+                                x6.id = "star2half" + info_not_int[j].split("&")[1];
+                                x6.value = "2 and a half";
+                                x6.name = "rating";
+
+                                x7.setAttribute("type", "radio");
+                                x7.id = "star2" + info_not_int[j].split("&")[1];
+                                x7.value = "2";
+                                x7.name = "rating";
+
+                                x8.setAttribute("type", "radio");
+                                x8.id = "star1half" + info_not_int[j].split("&")[1];
+                                x8.value = "1 ans a half";
+                                x8.name = "rating";
+
+                                x9.setAttribute("type", "radio");
+                                x9.id = "star1" + info_not_int[j].split("&")[1];
+                                x9.value = "1";
+                                x9.name = "rating";
+
+                                x10.setAttribute("type", "radio");
+                                x10.id = "starhalf" + info_not_int[j].split("&")[1];
+                                x10.value = "half";
+                                x10.name = "rating";
+
+                                fild.value = info_not_int[j].split("&")[1]
+                                fild.className = "rating"
+                                fild.appendChild(x1);
+                                fild.appendChild(y1);
+                                fild.appendChild(x2);
+                                fild.appendChild(y2);
+                                fild.appendChild(x3);
+                                fild.appendChild(y3);
+                                fild.appendChild(x4);
+                                fild.appendChild(y4);
+                                fild.appendChild(x5);
+                                fild.appendChild(y5);
+                                fild.appendChild(x6);
+                                fild.appendChild(y6);
+                                fild.appendChild(x7);
+                                fild.appendChild(y7);
+                                fild.appendChild(x8);
+                                fild.appendChild(y8);
+                                fild.appendChild(x9);
+                                fild.appendChild(y9);
+                                fild.appendChild(x10);
+                                fild.appendChild(y10);
+                                
+
+                                fild.onclick = function (){
+                                      var my_rate = 0;
+                                      if(document.getElementById('star5' + this.value).checked){my_rate = 5;}
+                                      else if(document.getElementById('star4half' + this.value).checked){my_rate = 4.5;}
+                                      else if(document.getElementById('star4' + this.value).checked){my_rate = 4;}
+                                      else if(document.getElementById('star3half' + this.value).checked){my_rate = 3.5;}
+                                      else if(document.getElementById('star3' + this.value).checked){my_rate = 3;}
+                                      else if(document.getElementById('star2half' + this.value).checked){my_rate = 2.5;}
+                                      else if(document.getElementById('star2' + this.value).checked){my_rate = 2;}
+                                      else if(document.getElementById('star1half' + this.value).checked){my_rate = 1.5;}
+                                      else if(document.getElementById('star1' + this.value).checked){my_rate = 1;}
+                                      else if(document.getElementById('starhalf' + this.value).checked){my_rate = 0.5;}
+                                      $.post("/rate_user/" + this.value + "/" + my_rate)
+                                      update_values();
+                                      setTimeout(update_values, 1000);
+                                      console.log(my_rate)
+                                  };
+                              my_div4.appendChild(fild);
+                              }
+                              
+                      }
+
+                      var my_a1 = document.createElement("A");
+                      my_a1.className = "dropdown-item text-center small text-gray-500";
+                      my_a1.innerHTML = "Show All Alerts";
+                      document.getElementById("notefic").appendChild(my_a1);
+                      /*for(var k = 0; k < info_not_int.length; k++){
+                          var div = document.createElement("div");
+                              div.style.width = "400px";
+                              div.style.height = "50px";
+                              div.style.background = "green";
+                              div.style.color = "white";
+                              div.id = String(k) + "luckk"
+                              div.innerHTML = info_not_int[k].split("||||")[0];
+                              document.getElementById("notefic").appendChild(div);
+                              //console.log("yoo",  (info_not_int[k]);
+                          if(info_not_int[k].split("||||")[0][info_not_int[k].split("||||")[0].length - 1] == "!" && String(info_not_int[k].split("||||")[2]) == "1"){
+                                  var agree = document.createElement("BUTTON");
+                                  var decil = document.createElement("BUTTON");
+                                  agree.innerHTML = "Agree";
+                                  decil.innerHTML = "Decil";
+                                  agree.value = info_not_int[k].split("||||")[1] + "|||" + info_not_int[k].split(" ")[0] + "|||" + info_not_int[k].split(" ")[4]
+                                  decil.value = info_not_int[k].split("||||")[1] + "|||" + info_not_int[k].split(" ")[0] 
+                                  agree.onclick = function (){
+                                      $.post("/book_agree/" + curr_username + "|||" + this.value);
+                                      //+ last_info[j].split("||||")[1]
+                                      //+ "|||" + last_info[j].split(" ")[0] 
+                                  };
+                                  decil.onclick = function (){
+                                      $.post("/book_decil/" + curr_username + this.value);
+                                  };
+                                  document.getElementById(String(k) + "luckk").appendChild(agree);
+                                  document.getElementById(String(k) + "luckk").appendChild(decil);
+                                  console.log("passed");
+                              }
+
+                      }*/
+                      console.log(user_info[1])
+                      for(var i = 0; i < user_info[1].length; i++){
+                          var key;
+                              console.log(user_info[1][i])
+                             var div = document.createElement("div");
+                              div.style.width = "200px";
+                              div.style.height = "50px";
+                              div.style.background = "red";
+                              div.style.color = "white";
+                              div.innerHTML = user_info[1][i][1]  + user_info[1][i][2]
+                              div.id = String(i) + "asd"
+                              div.value = user_info[1][i][0]
+                              div.onclick = function () {$.post("/get_quest/" + document.getElementById(this.id).value);document.getElementById("quest").submit();};
+                              document.getElementById("inter_posts").appendChild(div);
+                      }
+                  }
+  );
+}
+else if(window.location.href.split("?").length > 2 && window.location.href.split("?")[2].split("=")[0] == "us_im"){
+
+                                $.getJSON(
+              $SCRIPT_ROOT+"/user_info", // Your AJAX route here
+              function(user_info) {
+                      var not_info;
+                      console.log(user_info);
+                      //document.getElementById("name").innerHTML = "Name  " + user_info[0][0][0]
+                      //document.getElementById("surname").innerHTML = "Surname  " + user_info[0][0][1]
+                      document.getElementById("name_sname").innerHTML = user_info[0][0][0] + " " + user_info[0][0][1]
+                    //  document.getElementById("mail").innerHTML = "Mail  " + user_info[0][0][4]
+                   //   document.getElementById("uname").innerHTML = "USername  " + user_info[0][0][5]
+                   //   document.getElementById("ret").innerHTML = "Reiting  " + user_info[0][0][2]
+                     // document.getElementById("br_day").innerHTML = "Bday  " + user_info[0][0][7]
+                     curr_username = user_info[0][0][5];
+                      document.getElementById("user_image").src = "/static/user_image/" + user_info[0][0][5] + "/a.png"
+                      not_info = user_info[0][0][9]
+                      console.log(not_info);
+                      for(x in user_info[0][0][9]){not_info = not_info.replace("'", '"')}
+                      console.log(not_info);
+                      if(JSON.parse(not_info)[0].length == 0){document.getElementById("unread_notef").style.display = "none";}
+                      else{document.getElementById("unread_notef").innerHTML = JSON.parse(not_info)[0].length + "+";document.getElementById("unread_notef").style.display = "block";}
+                      
+                      var last_info = JSON.parse(not_info)[0].reverse();
+                      var info_not_int = JSON.parse(not_info)[1].reverse();
+                      for(var j = 0; j < last_info.length; j++){
+                          var my_a = document.createElement("A");
+                          var my_div1 = document.createElement("div");
+                          var my_div2 = document.createElement("div");
+                          var my_div3 = document.createElement("div");
+                          var my_div4 = document.createElement("div");
+                          var my_span = document.createElement("SPAN");
+                          var my_i = document.createElement("I");
+                             /* div.style.width = "400px";
+                              div.style.height = "50px";
+                              div.style.background = "red";
+                              div.style.color = "white";*/
+
+                              my_a.id = String(j) + "luck";
+                              my_a.href = "#";
+                              my_a.className = "dropdown-item d-flex align-items-center";
+                              my_div1.className = "mr-3";
+                              my_div2.className = "icon-circle bg-primary";
+                              my_i.className = "fas fa-file-alt text-white";
+                              my_div2.appendChild(my_i);
+                              my_div1.appendChild(my_div2);
+                              my_div3.className = "small text-gray-500";
+                              my_div3.innerHTML = "orm";
+                              my_span.className = "font-weight-bold";
+                              my_span.innerHTML = last_info[j].split("||||")[0];
+                              my_a.appendChild(my_div1)
+                              my_div4.appendChild(my_div3)
+                              my_div4.appendChild(my_span)
+                              my_a.appendChild(my_div4)
+                              //div.innerHTML = last_info[j].split("||||")[0];
+                              console.log(last_info[j]);
+                              document.getElementById("notefic").appendChild(my_a);
+                              if(last_info[j].split("||||")[0][last_info[j].split("||||")[0].length - 1] == "!" && String(last_info[j].split("||||")[2]) == "1"){
+                                  var agree = document.createElement("BUTTON");
+                                  var decil = document.createElement("BUTTON");
+                                  agree.innerHTML = "Agree";
+                                  decil.innerHTML = "Decil";
+                                  agree.value = last_info[j].split("||||")[1] + "|||" + last_info[j].split(" ")[0] + "|||" + last_info[j].split(" ")[4]
+                                  decil.value = last_info[j].split("||||")[1] + "|||" + last_info[j].split(" ")[0] 
+                                  agree.onclick = function (){
+                                    update_values();
+                                      $.post("/book_agree/" + curr_username + "|||" + this.value);
+                                      update_values();
+                                      setTimeout(update_values(), 1000)
+                                      update_values();
+                                      //+ last_info[j].split("||||")[1]
+                                      //+ "|||" + last_info[j].split(" ")[0] 
+                                  };
+                                  decil.onclick = function (){
+                                    update_values();
+                                      $.post("/book_decil/" + curr_username + this.value);
+                                      update_values();
+                                      setTimeout(update_values(), 1000);
+                                      update_values();
+                                  };
+                                  document.getElementById(String(j) + "luck").appendChild(agree);
+                                  document.getElementById(String(j) + "luck").appendChild(decil);
+                                  console.log("passed");
+                              }
+                              
+                      }
+                      for(var j = 0; j < info_not_int.length; j++){
+                          var my_a = document.createElement("A");
+                          var my_div1 = document.createElement("div");
+                          var my_div2 = document.createElement("div");
+                          var my_div3 = document.createElement("div");
+                          var my_div4 = document.createElement("div");
+                          var my_span = document.createElement("SPAN");
+                          var my_i = document.createElement("I");
+                             /* div.style.width = "400px";
+                              div.style.height = "50px";
+                              div.style.background = "red";
+                              div.style.color = "white";*/
+
+                              my_a.id = String(j) + "luck";
+                              my_a.href = "#";
+                              my_a.className = "dropdown-item d-flex align-items-center";
+                              my_div1.className = "mr-3";
+                              my_div2.className = "icon-circle bg-primary";
+                              my_i.className = "fas fa-file-alt text-white";
+                              my_div2.appendChild(my_i);
+                              my_div1.appendChild(my_div2);
+                              my_div3.className = "small text-gray-500";
+                              my_div3.innerHTML = "orm";
+                              my_span.className = "font-weight";
+                              my_span.innerHTML = info_not_int[j].split("||||")[0];
+                              my_a.appendChild(my_div1)
+                              my_div4.appendChild(my_div3)
+                              my_div4.appendChild(my_span)
+                              my_a.appendChild(my_div4)
+                              //div.innerHTML = last_info[j].split("||||")[0];
+                              console.log(last_info[j]);
+                              document.getElementById("notefic").appendChild(my_a);
+                              if(info_not_int[j].split("||||")[0][info_not_int[j].split("||||")[0].length - 1] == "!" && String(info_not_int[j].split("||||")[2]) == "1"){
+                                  var agree = document.createElement("BUTTON");
+                                  var decil = document.createElement("BUTTON");
+                                  agree.innerHTML = "Agree";
+                                  decil.innerHTML = "Decil";
+                                  agree.value = info_not_int[j].split("||||")[1] + "|||" + info_not_int[j].split(" ")[0] + "|||" + info_not_int[j].split(" ")[4]
+                                  decil.value = info_not_int[j].split("||||")[1] + "|||" + info_not_int[j].split(" ")[0] 
+                                  agree.onclick = function (){
+                                    update_values();
+                                      $.post("/book_agree/" + curr_username + "|||" + this.value);
+                                      update_values();
+                                      setTimeout(update_values(), 1000);
+                                      update_values();
+                                      //+ last_info[j].split("||||")[1]
+                                      //+ "|||" + last_info[j].split(" ")[0] 
+                                  };
+                                  decil.onclick = function (){
+                                      $.post("/book_decil/" + curr_username + this.value);
+                                  };
+                                  document.getElementById(String(j) + "luck").appendChild(agree);
+                                  document.getElementById(String(j) + "luck").appendChild(decil);
+                                  console.log("passed");
+                              }
+                              
+                      }
+
+                      var my_a1 = document.createElement("A");
+                      my_a1.className = "dropdown-item text-center small text-gray-500";
+                      my_a1.innerHTML = "Show All Alerts";
+                      document.getElementById("notefic").appendChild(my_a1);
+                      /*for(var k = 0; k < info_not_int.length; k++){
+                          var div = document.createElement("div");
+                              div.style.width = "400px";
+                              div.style.height = "50px";
+                              div.style.background = "green";
+                              div.style.color = "white";
+                              div.id = String(k) + "luckk"
+                              div.innerHTML = info_not_int[k].split("||||")[0];
+                              document.getElementById("notefic").appendChild(div);
+                              //console.log("yoo",  (info_not_int[k]);
+                          if(info_not_int[k].split("||||")[0][info_not_int[k].split("||||")[0].length - 1] == "!" && String(info_not_int[k].split("||||")[2]) == "1"){
+                                  var agree = document.createElement("BUTTON");
+                                  var decil = document.createElement("BUTTON");
+                                  agree.innerHTML = "Agree";
+                                  decil.innerHTML = "Decil";
+                                  agree.value = info_not_int[k].split("||||")[1] + "|||" + info_not_int[k].split(" ")[0] + "|||" + info_not_int[k].split(" ")[4]
+                                  decil.value = info_not_int[k].split("||||")[1] + "|||" + info_not_int[k].split(" ")[0] 
+                                  agree.onclick = function (){
+                                      $.post("/book_agree/" + curr_username + "|||" + this.value);
+                                      //+ last_info[j].split("||||")[1]
+                                      //+ "|||" + last_info[j].split(" ")[0] 
+                                  };
+                                  decil.onclick = function (){
+                                      $.post("/book_decil/" + curr_username + this.value);
+                                  };
+                                  document.getElementById(String(k) + "luckk").appendChild(agree);
+                                  document.getElementById(String(k) + "luckk").appendChild(decil);
+                                  console.log("passed");
+                              }
+
+                      }*/
+                      console.log(user_info[1])
+                      for(var i = 0; i < user_info[1].length; i++){
+                          var key;
+                              console.log(user_info[1][i])
+                             var div = document.createElement("div");
+                              div.style.width = "200px";
+                              div.style.height = "50px";
+                              div.style.background = "red";
+                              div.style.color = "white";
+                              div.innerHTML = user_info[1][i][1]  + user_info[1][i][2]
+                              div.id = String(i) + "asd"
+                              div.value = user_info[1][i][0]
+                              div.onclick = function () {$.post("/get_quest/" + document.getElementById(this.id).value);document.getElementById("quest").submit();};
+                              document.getElementById("inter_posts").appendChild(div);
+                      }
+                  }
+  );
+
+
+}
+                //  setTimeout(arguments.callee, 1000);
         })();
 
     </script>

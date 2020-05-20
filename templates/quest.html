@@ -431,9 +431,11 @@
     box-shadow: 0 11px 7px 0 rgba(0,0,0,0.19),0 13px 25px 0 rgba(0,0,0,0.3);
 }
     </style>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 </head>
 <body>
-
+	<form action="#" id="sock"><button id="sock_click" style="display: none;"></button></form>
 <div class="container">
 <div class="row">
         <div class="col-lg-4">
@@ -569,16 +571,50 @@
                     <!--/row-->
                 </div>
                 <br>
-                     <button onclick="book_show();book_open();" class="btn btn-primary" type="submit">Book</button>
-                     <br><br>
-                     <div id="book_div">
-                          <input type="text" id="book_num" class="form-control" placeholder="Phone number" aria-label="Phone number" aria-describedby="basic-addon2">
-                          <br>
-                          <input type="text" id="num_seat" class="form-control" placeholder="Book space" aria-label="Book space" aria-describedby="basic-addon2">
-                          <br>
-                          <button onclick="hide_book()" class="btn btn-primary" type="submit">Discard</button>
-                          <button id="book_seat"  class="btn btn-primary" type="submit">Submit</button>
-                     </div>
+
+                    <div id="none_booked">
+                         <button onclick="book_show();book_open();" class="btn btn-primary" type="submit">Book</button>
+                         <br><br>
+                         <div id="book_div">
+                              <input type="text" id="book_num" class="form-control" placeholder="Phone number" aria-label="Phone number" aria-describedby="basic-addon2">
+                              <br>
+                              <input type="text" id="num_seat" class="form-control" placeholder="Book space" aria-label="Book space" aria-describedby="basic-addon2">
+                              <br>
+                              <button onclick="hide_book()" class="btn btn-primary" type="submit">Discard</button>
+                              <button id="book_seat"  class="btn btn-primary" type="submit">Submit</button>
+                         </div>
+                    </div>
+
+                    <div id="booked" style="display: none;">
+                        <div class="btn-group">
+                          <button class="btn btn-primary btn-lg" type="button">
+                            Booked
+                          </button>
+                          <button type="button" class="btn btn-lg btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="sr-only">Toggle Dropdown</span>
+                          </button>
+                          <div class="dropdown-menu">
+                                <a class="dropdown-item" onclick="unbook_order()">Unbook</a>
+                                <a class="dropdown-item" href="#">Message</a>
+                          </div>
+                        </div>
+                    </div>
+
+                    <div id="requested" style="display: none;">
+                        <div class="btn-group">
+                          <button class="btn btn-primary btn-lg" type="button">
+                            Requested
+                          </button>
+                          <button type="button" class="btn btn-lg btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="sr-only">Toggle Dropdown</span>
+                          </button>
+                          <div class="dropdown-menu">
+                                <a class="dropdown-item" href="#">Unbook</a>
+                                <a class="dropdown-item" href="#">Message</a>
+                          </div>
+                        </div>
+                    </div>
+
                 <div id="messages">
                 </div>
 
@@ -667,6 +703,7 @@
 <h1 id="my_baby"></h1>
  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script type="text/javascript">
+
     document.getElementById("show_map").style.display = "none";
     document.getElementById("book_div").style.display = "none";
     var my_way_id;
@@ -707,17 +744,56 @@
     	    var inform;
     var my_user_info;
     var out_val = ''
+    var booked;
+    var curr_us;
     //document.getElementById("book").style.display = "none";
                 $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
 
         (function(){
 
                             $.getJSON(
+                                $SCRIPT_ROOT + "/user_login_info",
+            function(user_login_info){
+              console.log(user_login_info);
+              my_user_info = String(user_login_info);
+              document.getElementById("my_baby").value = user_login_info;
+            }
+                  );
+
+
+            $.getJSON(
+                                $SCRIPT_ROOT + "/getsession",
+            function(getsession){
+                curr_us = getsession;
+            }
+                  );
+
+                            $.getJSON(
             $SCRIPT_ROOT+"/get_full_posts", // Your AJAX route here
             function(get_full_posts) {
                     post_id = window.location.href.split("?")[1].split("=")[1]
-
                     my_post = get_full_posts[post_id - 1]
+                    console.log(my_post)
+                    booked = my_post[12];
+                    for (i in booked){booked = booked.replace("'", '"')}
+                    for (j in JSON.parse(booked)){
+                        console.log(JSON.parse(booked)[j])
+                        console.log(JSON.parse(booked)[j][0], my_user_info)
+                        
+                        if(JSON.parse(booked)[j][0] == my_user_info){
+                            
+                            if(JSON.parse(booked)[j][1] == 1){
+                                console.log("Booked");
+                                document.getElementById("none_booked").style.display = "none";
+                                document.getElementById("booked").style.display = "block";
+                            }
+                            else{
+                                document.getElementById("none_booked").style.display = "none";
+                                document.getElementById("requested").style.display = "block";
+                            }
+                        }
+
+                    }
                     document.getElementById("creator_uname").innerHTML = my_post[11]
                     document.getElementById("fromo").innerHTML = "From  " + my_post[1]
                     my_way_id = my_post[0];
@@ -735,14 +811,7 @@
 
                 }
 );
-                $.getJSON(
-                                $SCRIPT_ROOT + "/user_login_info",
-            function(user_login_info){
-              console.log(user_login_info);
-              my_user_info = String(user_login_info);
-              document.getElementById("my_baby").value = user_login_info;
-            }
-                  );
+
               //  setTimeout(arguments.callee, 1000);
         })();
         function book_open(){
@@ -755,10 +824,38 @@
             $(document).ready(function() {
         $('#book_seat').click(function() {
        $.post("/book_seat/" + document.getElementById("book_num").value + "|||" + document.getElementById("num_seat").value + "|||" + my_way_id + "|||" + document.getElementById("my_baby").value + "|||" + document.getElementById("creator_uname").innerHTML + "|||" + document.getElementById("fromo").innerHTML.split("  ")[1] + "|||" + document.getElementById("too").innerHTML.split("  ")[1]);
-       
+      document.getElementById("sock_click").click()
+      hide_book()
+
 
         });
     });
+
+
+ var socket = io.connect('https://codetg.cf/')
+
+   socket.on( 'connect', function() {
+	     socket.emit( 'my event', {
+		         data: 'User Connected'
+				   } )
+	       var form = $( '#sock' ).on( 'submit', function( e ) {
+		           e.preventDefault()
+				       socket.emit( 'gagarin', {
+					             user_name : "a1",
+						           message : "a2"
+								       } )
+			       // emptyut field
+			     } )
+   } )
+socket.on( 'sahak', function( msg ) {
+	       console.log(msg)
+})
+
+function unbook_order(){
+    console.log("Unbook")
+    $.post("/unbook/" + String(post_id) + "|||" + my_user_info + "|||" + document.getElementById("creator_uname").innerHTML);
+}
+
     </script>
 
   <script type="text/javascript">
